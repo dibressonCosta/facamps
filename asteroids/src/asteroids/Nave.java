@@ -113,6 +113,7 @@ public class Nave extends Elemento implements KeyListener {
             case KeyEvent.VK_F:
                 fshow();
                 break;
+
         }
     }
 
