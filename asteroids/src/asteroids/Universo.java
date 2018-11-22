@@ -117,7 +117,7 @@ public class Universo extends JPanel implements Runnable {
             if (t > 30) {
                 if (e != nave) {
                     if (nave.testaColisao(e)) {
-                        nave.x = 500 / 2;
+                        nave.x = 700 / 2;
                         nave.y = 500 / 2;
                         nave.vx = 0;
                         nave.vy = 0;

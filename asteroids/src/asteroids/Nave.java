@@ -58,8 +58,8 @@ public class Nave extends Elemento implements KeyListener {
     public void shoot() {
         xti = x + (26 * Math.sin(angulo));
         yti = y - (26 * Math.cos(angulo));
-        if(!f){
-          s.laserSound.play();
+        if (!f) {
+            s.laserSound.play();
         }
         Missil tiro = new Missil(this.xti, (this.yti - 13), angulo);
         Universo.getInstance().adicionar.add(tiro);
@@ -76,15 +76,15 @@ public class Nave extends Elemento implements KeyListener {
     }
 
     public void fshow() {
-        synchronized(Universo.getInstance().lock){
-        s.music();
-        }
         if (f == false) {
             f = true;
             Universo.getInstance().f = true;
+            s.music(true);
         } else if (f == true) {
             f = false;
+            keySpacePressed = false;
             Universo.getInstance().f = false;
+            s.music(false);
         }
     }
 
@@ -168,7 +168,7 @@ public class Nave extends Elemento implements KeyListener {
     public boolean testaColisao(Elemento other) {
         double soma = Math.pow((other.x - this.x), 2) + Math.pow((other.y - this.y), 2);
         double d = Math.sqrt(soma);
-        if(f){
+        if (f) {
             return false;
         }
         if (other instanceof Missil) {
