@@ -34,6 +34,7 @@ public class Tend_import {
     }
 
     public static double moda() {
+        System.out.println("top");
         List <Integer> tmeds = new ArrayList<>();
         int n = dados.size();
         for (int i = 0; i < n; i++) {

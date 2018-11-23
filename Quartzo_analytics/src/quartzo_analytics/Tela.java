@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package quartzo_analytics;
 
 import java.awt.Color;
@@ -381,12 +376,12 @@ public class Tela extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4)
+                        .addComponent(salvarTab))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(nometabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)
-                            .addComponent(salvarTab))))
+                        .addComponent(jLabel1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -419,6 +414,11 @@ public class Tela extends javax.swing.JFrame {
         jLabel9.setText("Mediana:");
 
         r_mediana.setEditable(false);
+        r_mediana.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                r_medianaActionPerformed(evt);
+            }
+        });
 
         jLabel10.setText("coeficiente-de-assimetria :");
 
@@ -747,9 +747,8 @@ public class Tela extends javax.swing.JFrame {
             String Coeficiente_de_variacao[] = {Double.toString(arredondar(Tend_central.Coeficiente_de_variacao(valores, position), 2))};
             r_cv.setText(Coeficiente_de_variacao[0]);
 
-            String analiseVar = Tend_central.analiseVar(Tend_central.Coeficiente_de_variacao(valores, position));
-            r_variacao.setText(Coeficiente_de_variacao[0]);
-
+            String moda = Double.toString(Tend_import.moda());
+            r_moda.setText(moda);
             double eixoX[] = new double[freqArred.length];
             double eixoY[] = new double[freqArred.length];
             for (int i = 0; i < freqArred.length; i++) {
@@ -914,6 +913,10 @@ public class Tela extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_resultadoActionPerformed
+
+    private void r_medianaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_r_medianaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_r_medianaActionPerformed
 
     /**
      * @param args the command line arguments
