@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.nio.file.Paths;
@@ -12,8 +14,9 @@ import java.util.List;
 import java.util.Random;
 import javax.swing.JPanel;
 
-public class Universo extends JPanel implements Runnable {
+public class Universo extends JPanel implements Runnable, KeyListener {
 
+    boolean keyEnterPressed;
     int score = 0;
     private static Universo singleton;
     private Nave nave;
@@ -28,11 +31,27 @@ public class Universo extends JPanel implements Runnable {
     }
 
     private Universo() {
-        this.nave = new Nave(0, 3, 250, 250, 0, 0, 4, true);
+        preencheUniverso();
+    }
+    
+    public void preencheUniverso() {
+        this.nave = new Nave(0, 3, 350, 250, 0, 0, 4, true);
         listaDeElementos = new ArrayList<>();
         this.setFocusable(true);
         this.addKeyListener(nave);
         listaDeElementos.add(nave);
+        int w = 700;
+        int h = 500;
+        Random r = new Random(0);
+        for (int i = 0; i < 10; i++) {
+            double x = r.nextInt(w);
+            double y = r.nextInt(h);
+            double vx = r.nextDouble() * 2;
+            double vy = r.nextDouble() * 2;
+            double raio = 25;
+            boolean vivo = true;
+            addElemento(new Asteroide(x, y, vx, vy, raio, vivo));
+        }
     }
     List<Elemento> listaDeElementos;
     boolean gameOver = false;
@@ -83,18 +102,19 @@ public class Universo extends JPanel implements Runnable {
             g2.fillRect(0, 0, w, h);
         }
         Font incrivel = getFonte(30);
-        
+
         g2.setFont(incrivel);
         g2.setColor(Color.white);
-        if(nave.vida == 0){
-            g2.drawString("GAME OVER", 250,250);
+        if (nave.vida == 0) {
+            g2.drawString("GAME OVER", 250, 250);
         }
         g2.drawString(cu, 5, 25);
         g2.drawString(life, 600, 25);
 
         synchronized (lock) {
-            for (Elemento e : listaDeElementos)
+            for (Elemento e : listaDeElementos) {
                 e.paint(g2);
+            }
         }
     }
 
@@ -117,7 +137,7 @@ public class Universo extends JPanel implements Runnable {
             if (t > 30) {
                 if (e != nave) {
                     if (nave.testaColisao(e)) {
-                        nave.x = 500 / 2;
+                        nave.x = 700 / 2;
                         nave.y = 500 / 2;
                         nave.vx = 0;
                         nave.vy = 0;
@@ -125,21 +145,28 @@ public class Universo extends JPanel implements Runnable {
                         t = 0;
                         nave.c = 0;
                         if (nave.vida == 0) {
+                            gameOver = true;
                             remover.addAll(listaDeElementos);
+                            if(keyEnterPressed){
+                                System.out.println("top");
+                                preencheUniverso();
+                            }
                         }
                     }
                 }
             }
+            
         }
         synchronized (lock) {
             listaDeElementos.removeAll(remover);
             listaDeElementos.addAll(adicionar);
             adicionar.clear();
+            remover.clear();
 
         }
         repaint();
     }
-
+    
     @Override
     public void run() {
         while (!gameOver) {
@@ -151,7 +178,7 @@ public class Universo extends JPanel implements Runnable {
             }
         }
     }
-
+    
     public void criaAsteroid(int xis, int ipeslon) {
         if (xis > 0 && ipeslon > 0) {
             Random r = new Random(0);
@@ -163,5 +190,26 @@ public class Universo extends JPanel implements Runnable {
             boolean vivo = true;
             adicionar.add(new Asteroide(x, y, vx, vy, raio, vivo));
         }
+    }
+    
+    @Override
+    public void keyTyped(KeyEvent ke) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent ke) {
+        switch (ke.getKeyCode()) {         
+            case KeyEvent.VK_ENTER:
+                System.out.println("enter");
+                keyEnterPressed = true;
+                break;
+
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent ke) {
+
     }
 }
