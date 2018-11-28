@@ -686,7 +686,7 @@ public class Tela extends javax.swing.JFrame {
     double[][] freq;
     double[][] freqArred;
     boolean qtd = false; //se a tabela tem a coluna quantidade
-    int qtdcol;          //qual o indice da coluda quantidade 
+    int qtdcol;          //qual o indice da coluna quantidade 
     int qtddados;        //quantos dados tem
     File file;
     public static List<Double> DadosList;
@@ -747,7 +747,7 @@ public class Tela extends javax.swing.JFrame {
             String Coeficiente_de_variacao[] = {Double.toString(arredondar(Tend_central.Coeficiente_de_variacao(valores, position), 2))};
             r_cv.setText(Coeficiente_de_variacao[0]);
 
-            String moda = Double.toString(Tend_import.moda());
+            String moda = Tend_import.moda(freq);
             r_moda.setText(moda);
             double eixoX[] = new double[freqArred.length];
             double eixoY[] = new double[freqArred.length];

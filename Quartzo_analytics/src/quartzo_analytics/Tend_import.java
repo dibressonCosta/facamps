@@ -1,11 +1,10 @@
-
 package quartzo_analytics;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Tend_import {
+
     static List<Double> dados = Tela.DadosList;
 
     static double soma;
@@ -33,14 +32,26 @@ public class Tend_import {
         return mediana;
     }
 
-    public static double moda() {
-        System.out.println("top");
-        List <Integer> tmeds = new ArrayList<>();
-        int n = dados.size();
-        for (int i = 0; i < n; i++) {
-            //Integer d = new Integer(((DefaultTableModel)Tela.
+    public static String moda(double[][] freq) {
+        double maiorfreq = 0;
+        String modas = "";
+        int c = 0;
+        for (int i = 0; i < freq.length; i++) {
+            if (freq[i][1] > maiorfreq) {
+                maiorfreq = freq[i][1];
+                modas = Double.toString(freq[i][0]);
+            }
         }
-        return 1.4;
+        for (int i = 0; i < freq.length; i++) {
+            if (freq[i][1] == maiorfreq) {
+                if(c>0){
+                    modas = modas + ", " + freq[i][0];
+                }
+                c++;
+            }
+        }
+
+        return modas;
     }
-    
+
 }
